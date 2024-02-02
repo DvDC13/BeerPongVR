@@ -1,0 +1,15 @@
+name: Build
+
+on: 
+  push:
+    branches: [ci, main]
+  pull_request:
+    branches: [main]
+    types: [closed]
+jobs:
+  invite:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: game-ci/unity-builder@v4
+        with:
+          targetPlatform: WebGL
