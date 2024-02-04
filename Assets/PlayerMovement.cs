@@ -21,16 +21,16 @@ public class VRPlayerMovement : MonoBehaviour
 
         if (leftJoystick.TryReadAxis2DValue(InputHelpers.Axis2D.PrimaryAxis2D, out vec2))
         {
-            Debug.Log(vec2);
             Vector3 moveDirection = new Vector3(vec2.x, 0, vec2.y);
             transform.Translate(moveDirection * speed * Time.deltaTime);
         }
 
-        Vector3 velocity;
+        Vector2 vec2_rotation;
 
-        if (leftJoystick.TryGetFeatureValue(UnityEngine.XR.CommonUsages.deviceVelocity, out velocity))
+        if (rightJoystick.TryReadAxis2DValue(InputHelpers.Axis2D.PrimaryAxis2D, out vec2_rotation))
         {
-            Debug.Log(string.Format( "{0}, {1}, {2}", velocity.x, velocity.y, velocity.z));
+            Vector3 moveDirection = new Vector3(0, vec2_rotation.x, 0);
+            transform.Rotate(moveDirection * speed * 20.0f * Time.deltaTime);
         }
     }
 }
