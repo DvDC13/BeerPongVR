@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using Unity.XR.CoreUtils.Bindings.Variables;
 using UnityEngine;
 using UnityEngine.UIElements;
-
+using Photon.Pun;
+using UnityEngine.Rendering.PostProcessing;
 public class StateOfGame : MonoBehaviour
 {
     public static int redCupsLeft = 13;
@@ -20,7 +21,7 @@ public class StateOfGame : MonoBehaviour
         // 1 is for red bin and 2 is for yellow bin
         if (cup == 1)
         {
-            ball.gameObject.transform.position = new Vector3(1.6f, 0.6f, 8.9f);
+            ball.gameObject.transform.position = new Vector3(1.6f, 0.6f, 8.4f);
         }
         else if (cup == 2)
         {
@@ -37,6 +38,8 @@ public class StateOfGame : MonoBehaviour
             this.gameObject.SetActive(false);
             other.gameObject.SetActive(false); // or make it back in the bucket
 
+            PhotonNetwork.Destroy(this.gameObject);
+
             if (this.gameObject.transform.position.z <= 2.96) // yellow cups
             {
                 yellowCupsLeft--; // to update score
@@ -49,6 +52,11 @@ public class StateOfGame : MonoBehaviour
                 spawnBall(other, 2);
             }
             UIManager.instance.UpdateUI(redCupsLeft, yellowCupsLeft);
+            PostProcessVolume ppVolume = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<PostProcessVolume>();
+            if (ppVolume != null)
+            {
+                ppVolume.enabled = true;
+            }
         }
     }
 
