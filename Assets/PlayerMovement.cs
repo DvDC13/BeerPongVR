@@ -4,7 +4,6 @@ using UnityEngine.InputSystem;
 using System;
 using System.Collections.Generic;
 
-
 public class VRPlayerMovement : MonoBehaviour
 { 
     public float speed = 3.0f;

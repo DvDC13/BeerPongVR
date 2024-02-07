@@ -12,8 +12,12 @@ public class StateOfGame : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        this.gameObject.transform.parent.gameObject.SetActive(false);
-        this.gameObject.SetActive(false);
+        if (other.gameObject.GetComponent<SphereCollider>())
+        {
+            this.gameObject.transform.parent.gameObject.SetActive(false);
+            this.gameObject.SetActive(false);
+            other.gameObject.SetActive(false); // or make it back in the bucket
+        }
     }
 
     // Update is called once per frame
